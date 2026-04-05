@@ -28,6 +28,69 @@
       "artist": "広橋真紀子",
       "duration": 230,
       "mimeType": "audio/mpeg"
+    },
+    {
+      "key": "audio/One Last Kiss.mp3",
+      "title": "One Last Kiss",
+      "artist": "宇多田ヒカル",
+      "duration": 249,
+      "mimeType": "audio/mpeg"
+    },
+    {
+      "key": "audio/Ref Rain.mp3",
+      "title": "Ref:rain",
+      "artist": "Aimer",
+      "duration": 290,
+      "mimeType": "audio/mpeg"
+    },
+    {
+      "key": "audio/Beautiful World.mp3",
+      "title": "Beautiful World",
+      "artist": "宇多田ヒカル",
+      "duration": 314,
+      "mimeType": "audio/mpeg"
+    },
+    {
+      "key": "audio/ただ君に晴れ.mp3",
+      "title": "ただ君に晴れ",
+      "artist": "ヨルシカ",
+      "duration": 198,
+      "mimeType": "audio/mpeg"
+    },
+    {
+      "key": "audio/翼をください.mp3",
+      "title": "翼をください",
+      "artist": "林原めぐみ",
+      "duration": 290,
+      "mimeType": "audio/mpeg"
+    },
+    {
+      "key": "audio/悪魔の子.mp3",
+      "title": "悪魔の子",
+      "artist": "ヒグチアイ",
+      "duration": 227,
+      "mimeType": "audio/mpeg"
+    },
+    {
+      "key": "audio/The Legend of Ashitaka.mp3",
+      "title": "The Legend of Ashitaka",
+      "artist": "久石譲",
+      "duration": 301,
+      "mimeType": "audio/mpeg"
+    },
+    {
+      "key": "audio/Futari no kimochi.mp3",
+      "title": "Futari no kimochi",
+      "artist": "Kaoru Wada",
+      "duration": 159,
+      "mimeType": "audio/mpeg"
+    },
+    {
+      "key": "audio/生如夏花.mp3",
+      "title": "生如夏花",
+      "artist": "朴树",
+      "duration": 294,
+      "mimeType": "audio/mpeg"
     }
   ]
 }
