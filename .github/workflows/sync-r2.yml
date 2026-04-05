@@ -38,4 +38,3 @@ jobs:
           AUDIO_DIR: audio
           PLAYLIST_FILE: playlist.json
           AUDIO_PREFIX: audio/
-          DELETE_MISSING: "false"

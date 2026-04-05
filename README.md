@@ -81,5 +81,8 @@ wrangler secret put SIGNING_SECRET
 默认工作流会：
 
 - 扫描仓库里的 `audio/` 目录
-- 上传所有音频到 R2 的 `audio/` 前缀
+- 只上传音频文件到 R2 的 `audio/` 前缀
+- 自动忽略 `README.md`、`.gitkeep` 等非音频文件
+- 基于文件内容 hash 跳过未变化的音频，避免每次全量上传
+- 自动删除 R2 中已经不在仓库里的旧音频对象
 - 上传根目录 `playlist.json`
