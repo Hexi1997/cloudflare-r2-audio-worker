@@ -1,0 +1,34 @@
+{
+  "name": "cloudflare-r2-audio-worker",
+  "version": "1.0.0",
+  "description": "Cloudflare Workers + R2 audio distribution service with signed URLs and GitHub sync",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "check": "tsc --noEmit",
+    "test": "vitest run",
+    "sign": "tsx utils/sign.ts"
+  },
+  "keywords": [
+    "cloudflare",
+    "workers",
+    "r2",
+    "audio",
+    "cdn"
+  ],
+  "license": "MIT",
+  "packageManager": "pnpm@10.30.0",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260320.0",
+    "@types/node": "^24.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.1",
+    "wrangler": "^4.8.0"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.896.0",
+    "@aws-sdk/lib-storage": "^3.896.0"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "title": "Playlist",
+  "items": [
+    {
+      "key": "audio/春泥棒.mp3",
+      "title": "春泥棒",
+      "artist": "ヨルシカ",
+      "duration": 290,
+      "mimeType": "audio/mpeg"
+    },
+    {
+      "key": "audio/清白之年.mp3",
+      "title": "清白之年",
+      "artist": "朴树 & 王珞丹",
+      "duration": 271,
+      "mimeType": "audio/mpeg"
+    },
+    {
+      "key": "audio/甘き死よ、来たれ.mp3",
+      "title": "甘き死よ、来たれ",
+      "artist": "ARIANNE",
+      "duration": 463,
+      "mimeType": "audio/mpeg"
+    }
+  ]
+}

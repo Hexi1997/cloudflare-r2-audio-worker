@@ -1,0 +1,16 @@
+name = "cloudflare-r2-audio-worker"
+main = "src/index.ts"
+compatibility_date = "2026-04-04"
+
+[observability.logs]
+enabled = true
+
+[[r2_buckets]]
+binding = "AUDIO_BUCKET"
+bucket_name = "audio-bucket"
+
+[vars]
+PLAYLIST_KEY = "playlist.json"
+ALLOWED_REFERERS = "https://hexi.men,http://localhost:3000"
+BLOCKED_UA_PATTERNS = "curl,wget,python-requests,axios,golang,httpie"
+CACHE_TTL_SECONDS = "31536000"
