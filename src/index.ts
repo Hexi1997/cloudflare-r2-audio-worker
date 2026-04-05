@@ -3,14 +3,29 @@ import { buildCacheHeaders, buildEdgeCacheKey, getCachedAudio, putCachedAudio } 
 import { guessContentType, parseRangeHeader, readPlaylistObject, safeObjectKey } from "./r2";
 import type { Env, PlaylistDocument, PlaylistTrack } from "./types";
 
+function applyCorsHeaders(headers: Headers): Headers {
+  headers.set("Access-Control-Allow-Origin", "*");
+  headers.set("Access-Control-Allow-Headers", "content-type");
+  headers.set("Access-Control-Allow-Methods", "GET,OPTIONS");
+  return headers;
+}
+
+function withCors(response: Response): Response {
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers: applyCorsHeaders(new Headers(response.headers)),
+  });
+}
+
 function json(data: unknown, init: ResponseInit = {}): Response {
   const headers = new Headers(init.headers);
   headers.set("Content-Type", "application/json; charset=utf-8");
-  return new Response(JSON.stringify(data, null, 2), { ...init, headers });
+  return withCors(new Response(JSON.stringify(data, null, 2), { ...init, headers }));
 }
 
 function text(message: string, status = 200, headers?: HeadersInit): Response {
-  return new Response(message, { status, headers });
+  return withCors(new Response(message, { status, headers }));
 }
 
 function getAllowedReferers(env: Env): string[] {
@@ -69,12 +84,14 @@ async function handleAudio(request: Request, env: Env, key: string): Promise<Res
 
   const rangeRequest = parseRangeHeader(request.headers.get("range"), head.size);
   if (request.headers.has("range") && !rangeRequest) {
-    return new Response(null, {
-      status: 416,
-      headers: {
-        "Content-Range": `bytes */${head.size}`,
-      },
-    });
+    return withCors(
+      new Response(null, {
+        status: 416,
+        headers: {
+          "Content-Range": `bytes */${head.size}`,
+        },
+      }),
+    );
   }
 
   const contentType = guessContentType(objectKey, head);
@@ -87,7 +104,7 @@ async function handleAudio(request: Request, env: Env, key: string): Promise<Res
     if (cached) {
       const headers = new Headers(cached.headers);
       headers.set("Content-Disposition", `inline; filename="${filename}"`);
-      return new Response(cached.body, { status: cached.status, headers });
+      return withCors(new Response(cached.body, { status: cached.status, headers }));
     }
 
     const object = await env.AUDIO_BUCKET.get(objectKey);
@@ -103,7 +120,7 @@ async function handleAudio(request: Request, env: Env, key: string): Promise<Res
 
     const response = new Response(object.body, { status: 200, headers });
     await putCachedAudio(cacheKey, response.clone());
-    return response;
+    return withCors(response);
   }
 
   const object = await env.AUDIO_BUCKET.get(objectKey, { range: rangeRequest });
@@ -118,7 +135,7 @@ async function handleAudio(request: Request, env: Env, key: string): Promise<Res
   headers.set("Content-Range", `bytes ${rangeRequest.offset}-${end}/${head.size}`);
   headers.set("Content-Disposition", `inline; filename="${filename}"`);
   headers.set("ETag", object.httpEtag);
-  return new Response(object.body, { status: 206, headers });
+  return withCors(new Response(object.body, { status: 206, headers }));
 }
 
 async function handlePlaylist(env: Env): Promise<Response> {
@@ -159,14 +176,13 @@ async function handleTrackUrl(request: Request, env: Env, rawKey: string): Promi
 }
 
 function handleOptions(): Response {
-  return new Response(null, {
-    headers: {
-      Allow: "GET,OPTIONS",
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers": "content-type",
-      "Access-Control-Allow-Methods": "GET,OPTIONS",
-    },
-  });
+  return withCors(
+    new Response(null, {
+      headers: {
+        Allow: "GET,OPTIONS",
+      },
+    }),
+  );
 }
 
 export default {
